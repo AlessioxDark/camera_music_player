@@ -1,0 +1,4 @@
+frontend/camera_music_player/node_modules
+backend/.venv/
+backend/__pycache__/
+.DS_Store

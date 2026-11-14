@@ -1,0 +1,41 @@
+<body>
+  <!-- 1. Il tag immagine che mostra il video inviato da Python -->
+  <img id="webcam-stream" alt="Feed Webcam" />
+
+  <!-- 2. Un elemento grafico (es. un cerchio o un cursore) che si muove con la mano -->
+  <div
+    id="cursor-dito"
+    style="
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+      display: none;
+    "
+  ></div>
+
+  <script>
+    // Questa è la funzione che Python richiama a ogni fotogramma
+    function aggiornaStatoUI(base64Image, x, y) {
+      // A. AGGIORNI IL VIDEO: Prendi il Base64 e lo metti nell'immagine
+      const imgElement = document.getElementById("webcam-stream");
+      imgElement.src = "data:image/jpeg;base64," + base64Image;
+
+      // B. USI LE COORDINATE: Prendi x e y per interagire con la pagina
+      const cursore = document.getElementById("cursor-dito");
+
+      if (x !== null && y !== null) {
+        // Se la mano è rilevata, posizioni l'elemento HTML esattamente dove si trova il dito
+        cursore.style.display = "block";
+        cursore.style.left = x + "px";
+        cursore.style.top = y + "px";
+
+        // Qui puoi anche fare altro, ad esempio simulare un click se l'indice si chiude
+      } else {
+        // Se la mano sparisci dall'inquadratura, nascondi il cursore
+        cursore.style.display = "none";
+      }
+    }
+  </script>
+</body>
